@@ -11,22 +11,22 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    max: 50,
     unique: true,
+    max: 50,
   },
   password: {
     type: String,
     required: true,
-    min: 6,
+    min: 8,
   },
   isAvatarImageSet: {
     type: Boolean,
-    dafault: false,
+    default: false,
   },
-  avaterImage: {
+  avatarImage: {
     type: String,
     default: "",
   },
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Users", userSchema);
