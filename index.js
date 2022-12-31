@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const userRoutes = require("./routes/userRoutes");
+const messageRoutes = require("./routes/messagesRoute");
 require("dotenv").config();
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
+app.use("/api/messages", messageRoutes);
 
 // const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nlrhpzq.mongodb.net/?retryWrites=true&w=majority`;
 
