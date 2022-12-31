@@ -16,38 +16,39 @@ app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
 
-const uri = process.env.MONGO_URL2;
+// const uri = process.env.MONGO_URL2;
+// console.log(uri);
 
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverApi: ServerApiVersion.v1,
-});
+// const client = new MongoClient(uri, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   serverApi: ServerApiVersion.v1,
+// });
 
-async function run() {
-  try {
-    await client.connect();
-    console.log(`MongoDb Connected Successfully`);
-  } finally {
-    await client.close();
-  }
-}
-run().catch(console.dir);
+// async function run() {
+//   try {
+//     await client.connect();
+//     console.log(`MongoDb Connected Successfully`);
+//   } finally {
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);
 
-// mongoose.set("strictQuery", true);
-// mongoose
-//   // .connect(process.env.MONGO_URL, {
-//   .connect(process.env.MONGO_URL2, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     serverApi: ServerApiVersion.v1,
-//   })
-//   .then(() => {
-//     console.log("DB connection Successfully...");
-//   })
-//   .catch((err) => {
-//     console.log(err.message);
-//   });
+mongoose.set("strictQuery", true);
+mongoose
+  // .connect(process.env.MONGO_URL, {
+  .connect(process.env.MONGO_URL2, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverApi: ServerApiVersion.v1,
+  })
+  .then(() => {
+    console.log("DB connection Successfully...");
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 
 app.get("/", (req, res) => {
   res.send("Running `Chat App` Server");
