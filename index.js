@@ -16,64 +16,38 @@ app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
 
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nlrhpzq.mongodb.net/?retryWrites=true&w=majority`;
+const uri = process.env.MONGO_URL2;
 
-// const client = new MongoClient(uri, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   serverApi: ServerApiVersion.v1,
-// });
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
 
-// async function run() {
-//   try {
-//     await client.connect();
-//     // console.log(`MongoDb Connected Successfully`);
+async function run() {
+  try {
+    await mongoose.connect(client);
+    console.log(`MongoDb Connected Successfully`);
+  } finally {
+    await client.close();
+  }
+}
+run().catch(console.dir);
 
-//     /**
-//      * Query Start
-//      */
-
-//     // const userCollection = client.db(`dbName`).collection(`collectionName`);
-
-//     // app.get("/part/:id", async (req, res) => {
-//     //     const id = req.params.id;
-//     //     const query = { _id: ObjectId(id) };
-//     //     const part = await partsCollection.findOne(query);
-//     //     // const part = await cursor.toArray();
-//     //     res.send(part);
-//     //   });
-
-//     //   app.post("/part", verifyJWT, verifyAdmin, async (req, res) => {
-//     //     const part = req.body;
-//     //     const result = await partsCollection.insertOne(part);
-//     //     res.send(result);
-//     //   });
-
-//     //   app.delete("/part/:id", verifyJWT, verifyAdmin, async (req, res) => {
-//     //     const id = req.params.id;
-//     //     const filter = { _id: ObjectId(id) };
-//     //     const result = await partsCollection.deleteOne(filter);
-//     //     res.send(result);
-//     //   });
-//   } finally {
-//     await client.close();
-//   }
-// }
-// run().catch(console.dir);
-mongoose.set("strictQuery", true);
-mongoose
-  // .connect(process.env.MONGO_URL, {
-  .connect(process.env.MONGO_URL2, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverApi: ServerApiVersion.v1,
-  })
-  .then(() => {
-    console.log("DB connection Successfully...");
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+// mongoose.set("strictQuery", true);
+// mongoose
+//   // .connect(process.env.MONGO_URL, {
+//   .connect(process.env.MONGO_URL2, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     serverApi: ServerApiVersion.v1,
+//   })
+//   .then(() => {
+//     console.log("DB connection Successfully...");
+//   })
+//   .catch((err) => {
+//     console.log(err.message);
+//   });
 
 app.get("/", (req, res) => {
   res.send("Running `Chat App` Server");
