@@ -60,6 +60,7 @@ app.use("/api/auth", userRoutes);
 mongoose.set("strictQuery", true);
 mongoose
   .connect(process.env.MONGO_URL, {
+    // .connect(process.env.MONGO_URL2, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverApi: ServerApiVersion.v1,
