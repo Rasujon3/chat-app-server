@@ -62,8 +62,8 @@ app.use("/api/messages", messageRoutes);
 // run().catch(console.dir);
 mongoose.set("strictQuery", true);
 mongoose
-  .connect(process.env.MONGO_URL, {
-    // .connect(process.env.MONGO_URL2, {
+  // .connect(process.env.MONGO_URL, {
+  .connect(process.env.MONGO_URL2, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverApi: ServerApiVersion.v1,
@@ -85,7 +85,7 @@ const server = app.listen(port, () => {
 
 const io = socket(server, {
   cors: {
-    origin: process.env.CLIENT_SITE_URL || "http://localhost:3000",
+    origin: "http://localhost:3000",
     Credential: true,
   },
 });
