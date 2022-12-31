@@ -26,7 +26,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await mongoose.connect(client);
+    await client.connect();
     console.log(`MongoDb Connected Successfully`);
   } finally {
     await client.close();
