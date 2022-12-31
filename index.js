@@ -16,6 +16,7 @@ app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
 
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nlrhpzq.mongodb.net/?retryWrites=true&w=majority`;
 // const uri = process.env.MONGO_URL2;
 // console.log(uri);
 
@@ -38,7 +39,8 @@ app.use("/api/messages", messageRoutes);
 mongoose.set("strictQuery", true);
 mongoose
   // .connect(process.env.MONGO_URL, {
-  .connect(process.env.MONGO_URL2, {
+  // .connect(process.env.MONGO_URL2, {
+  .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverApi: ServerApiVersion.v1,
